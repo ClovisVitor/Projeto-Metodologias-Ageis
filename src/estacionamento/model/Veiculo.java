@@ -28,4 +28,15 @@ public class Veiculo {
     public void setCor(String cor) {
         this.cor = cor;
     }
+
+    public Veiculo(String placa, String modelo, String cor) {
+        this.placa = placa;
+        this.modelo = modelo;
+        this.cor = cor;
+    }
+
+    public double calcularValor(double valorBase) {
+        return valorBase;
+    }
 }
+
