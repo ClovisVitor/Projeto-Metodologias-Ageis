@@ -1,11 +1,21 @@
 import estacionamento.model.*;
 
 import java.util.Scanner;
+import estacionamento.config.conexao;
+import java.sql.Connection;
+import estacionamento.dao.VeiculoDAO;
 
 public class Main {
 
+
+
     public static void main(String[] args) {
 
+        Connection conn = conexao.conectar();
+
+        if (conn != null) {
+            System.out.println("Conectado ao PostgreSQL!");
+        }
         Scanner scanner = new Scanner(System.in);
 
         Estacionamento estacionamento = new Estacionamento();
@@ -56,6 +66,9 @@ public class Main {
                     };
 
                     if (veiculo != null) {
+                        VeiculoDAO dao = new VeiculoDAO();
+                        dao.salvar(veiculo);
+
                         estacionamento.registrarEntrada(veiculo);
                     }
 

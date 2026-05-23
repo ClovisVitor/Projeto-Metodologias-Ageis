@@ -3,6 +3,9 @@ package estacionamento.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import estacionamento.dao.VeiculoDAO;
+import estacionamento.dao.VagaDAO;
+import estacionamento.dao.MovimentacaoDAO;
 
 public class Estacionamento {
 
@@ -41,6 +44,9 @@ public class Estacionamento {
 
                 vaga.setOcupada(true);
 
+                VagaDAO vagaDAO = new VagaDAO();
+                vagaDAO.salvar(vaga);
+
                 Movimentacao movimentacao = new Movimentacao(
                         veiculo,
                         vaga,
@@ -48,6 +54,9 @@ public class Estacionamento {
                 );
 
                 movimentacoes.add(movimentacao);
+
+                MovimentacaoDAO movDAO = new MovimentacaoDAO();
+                movDAO.salvar(movimentacao);
 
                 System.out.println("Entrada registrada.");
                 System.out.println("Vaga: " + vaga.getNumero());
@@ -108,6 +117,15 @@ public class Estacionamento {
                 System.out.println("Data/Hora saída: " + mov.getDataSaida());
                 System.out.println("Valor pago: R$ " + valorFinal);
 
+                VeiculoDAO dao = new VeiculoDAO();
+                dao.excluirPorPlaca(
+                        mov.getVeiculo().getPlaca()
+                );
+
+                VagaDAO vagaDAO = new VagaDAO();
+                vagaDAO.excluirPorNumero(
+                        mov.getVaga().getNumero()
+                );
                 return;
             }
         }
